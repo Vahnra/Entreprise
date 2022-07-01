@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un employé{% endblock %}
+
+{% block body %}
+
+
+    {% if employe is not defined %}
+        <h1 class="text-center my-4">Ajout d'un nouvel employé</h1>
+    {% else %}
+        <h1 class="text-center my-4">Modifier l'employé {{ employe.firstname }} {{ employe.lastname }}</h1>
+    {% endif %}
+
+    <div class="row">
+        <div class="col-8 mx-auto mb-4">
+        {# Pour afficher un formulaire avec Twig, appelez la fonction form et renseeignez le nom du formulaire à afficher #}
+
+        {# Symfony implémente par défaut un theme bootstrap 5 pour les formulaire. #}
+        {# Première façon d'afficher un formulaire Twig #}
+            {# {{ form(form_employe) }} #}
+
+        {# Seconde façon d'afficher un formulaire Twig #}
+        {# Pour désactiver le validateur HTML coté-client (navigateur) on peut le faire dans EmployeFormType ('submit') OU dans le form_start en second argument comme suit : #}
+        {{ form_start(form_employe, {'attr': {novalidate: 'novalidate'}}) }}
+
+            {{ form_row(form_employe.lastname) }}
+            {{ form_row(form_employe.firstname) }}
+
+            <div class="row">
+                <div class="col-6">{{ form_row(form_employe.service) }}</div>
+                <div class="col-6">{{ form_row(form_employe.salary) }}</div>
+            </div>
+            {#  COMPOSITION D'UNE FORM_ROW() #}
+{#                {{ form_label(form_employe.gender) }}#}
+{#                {{ form_errors(form_employe.gender) }}#}
+{#                {{ form_widget(form_employe.gender) }}#}
+{#                {{ form_help(form_employe.gender) }}#}
+{# Vous devrez afficher tous les éléments de form_row, sans quoi vos éléments seront rendus une seconde fois #}
+
+            {{ form_row(form_employe.gender) }}
+            {{ form_row(form_employe.entryAt) }}
+
+{# Si vous n'affichez pas toutes les form_row, la fonction form_end() les rendra quoi qu'il arrive. #}
+        {{  form_end(form_employe) }}
+        </div>
+    </div>
+
+{% endblock %}

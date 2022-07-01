@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page Accueil
+{% endblock %}
+
+{% block body %}
+
+	<h1 class="text-center my-4">Bienvenue dans votre espace Admin.</h1>
+
+	 <div class="row">
+        <div class="col-10 mx-auto">
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Prénom</th>
+                    <th>Nom</th>
+                    <th>Sexe</th>
+                    <th>Service</th>
+                    <th>Date d'embauche</th>
+                    <th>Salaire</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for employe in employes %}
+                    <tr>
+                        <td>{{ employe.id }}</td>
+                        <td>{{ employe.firstname }}</td>
+                        <td>{{ employe.lastname }}</td>
+                        <td>{{ employe.gender }}</td>
+                        <td>{{ employe.service }}</td>
+                        <td>{{ employe.entryAt | date('d/m/Y') }}</td>
+                        <td>{{ employe.salary }}</td>
+                        <td>
+                            <a href="{{ path('employe_update', {'id' : employe.id}) }}" class="btn btn-sm btn-primary" title="Modifier un employe"><i class="fa-solid fa-user-pen"></i></a>
+                            <a href="{{ path('employe_delete', {'id' : employe.id}) }}" class="btn btn-sm btn-danger" title="Supprimer un employe"><i class="fa-solid fa-trash"></i></a>
+                        </td>
+                    </tr>
+                {%  endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+{% endblock %}
